@@ -1,0 +1,85 @@
+\documentclass[TS]{sesamanuel}
+
+% modifications dans la classe (fichier sesamanuel.cls) :
+% 	voir manuel 6e
+
+%%%%%%%
+%Rajouté le 12/06/2018 SV et BN pour compilation espace insécable sous linux 
+%\DeclareUnicodeCharacter{00A0}{~} %pour remplacer les espaces insécables
+%\DeclareUnicodeCharacter{2011}{-}
+%\usepackage{pdfpages}
+%%%%%%%
+
+
+\input{commandes-manuel-TS} 
+\input{commandes-tikz}
+
+\graphicspath{%
+  {OpNombresDecimaux/Figures/}%
+  {SimpMulDivFrac/Figures/}%
+  {Images/}%
+}
+
+
+% création d'un nouveau thème "calcul" pour le document
+\NewThema{C}{c}{calcul}{Calcul}{CALCUL}{PartieFonction}{A3}
+
+\renewcommand\ListeMethodesThemes{{c}{C},{g}{G}}
+\renewcommand*\StringListeMethode{M\'ethodes du livret 1}
+
+% création d'un nouveau thème "Manuel" pour le sommaire
+%\NewThema{M}{m}{manuel}{Manuel}{MANUEL}{PartieFonction}{A3}
+
+\usepackage{tikzpeople}
+\usetikzlibrary{shapes.callouts}
+
+\begin{document}
+
+
+
+\begin{prerequis}[Un manuel de l'association Sésamath]
+\begin{itemize}
+\item  Ce manuel est adapté en partie du manuel Sésamath de l'association Sésamath:\\
+\texttt{http://manuel.sesamath.net/}
+\item … Et de l'association Sésamath Suisse romande:\\ \texttt{http://www.sesamath.ch/}
+\item L'Institut Florimont a réalisé la transcription dans le langage de description de documents libre et gratuit \LaTeX{} en utilisant la classe \texttt{sesamanuel} développée par l'association Sésamath;
+\item E. Villié a réalisé la couverture pour l'Institut Florimont;
+\item Version Septembre 2019 --- Institut Florimont (Genève);\vspace{.3em}
+\item Publication sous licence libre \hspace{1em} \raisebox{-0.4\height}{\includegraphics[width=2cm]{cc-by-sa}}
+\end{itemize}
+ \end{prerequis}
+
+\vspace{1em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Fin page Sesamath
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Pour finir
+\colorlet{ChapterNumColor}{white}
+\setcounter{chapter}{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Fin Pour Finir…
+
+\setcounter{page}{4}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Début des chapitres
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\themaC
+\include{OpNombresDecimaux/OpNombresDecimaux}
+\include{SimpMulDivFrac/SimpMulDivFrac}
+
+%\themaG
+%\include{SymetriesAxialeEtCentrale/SymetriesAxialeEtCentrale}
+
+
+\AfficheListeMethodes
+\AfficheCorriges[2]
+\AfficheLexique
+
+\end{document}

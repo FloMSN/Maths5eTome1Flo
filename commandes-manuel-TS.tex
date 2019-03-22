@@ -1,0 +1,381 @@
+% a priori, après l'impression du livre, tout ce fichier devrait être
+% fusionné avec la classe principale, dernière version
+
+\AtBeginDocument{\color{Noir}}
+
+\renewcommand*\StringPrerequis{Connaissances
+  n\'ecessaires \`a ce chapitre}
+
+\usepackage{textcomp,pgfplots}
+% standalone ne gère pas graphicspath... hum...
+\newcommand{\standalonepath}[1]{#1}
+% Au début de chaque chapitre on redéfinira cette commande en
+% indiquant le chemin
+
+\frenchbsetup{og=«,fg=»,}
+
+\renewcommand\PrefixeCorrection{Corrections/}
+\DeclareRemLike{intuition}{Idée intuitive}
+\DeclareRemLike{exemples}{Exemples}
+
+
+\newcommand*\StringExemples{Exemples}
+\makeatletter
+\newcommand*\smc@cartoucheexemples{% au pluriel
+  \begin{pspicture}(-\ExempleVRuleWidthFrame,0)
+                 (\ExempleWidthFrame,\ExempleHeightFrame)
+    \psframe*[linewidth=0pt,linecolor=ExempleEdgeFrameColor]
+             (-\ExempleVRuleWidthFrame,-\ExempleHRuleWidthFrame)
+             (\ExempleWidthFrame,\ExempleHeightFrame)
+    \psframe*[linewidth=0pt,linecolor=ExempleBkgFrameColor]
+             (0mm,-0mm)(\ExempleWidthFrame,\ExempleHeightFrame)
+    \rput[B](\dimexpr\ExempleWidthFrame/2,0){%
+      \ExempleTitleFont
+      \textcolor{ExempleTitleColor}{\StringExemples}%
+    }
+  \end{pspicture}%
+}
+
+\newenvironment{exemples*1}[1][]{%
+  \par\addvspace{\BeforeExempleVSpace}
+  \let\correction\smc@one@exemplecorrection
+  \let\itemize\smc@exempleitemize
+  \let\enditemize\endsmc@exempleitemize
+  \let\colitemize\smc@exemplecolitemize
+  \let\endcolitemize\endsmc@exemplecolitemize
+  \let\enumerate\smc@exempleenumerate
+  \let\endenumerate\endsmc@exempleenumerate
+  \let\colenumerate\smc@exemplecolenumerate
+  \let\endcolenumerate\endsmc@exemplecolenumerate
+  \let\partie\smc@nopartie
+  \let\exercice\smc@noexercice
+  \let\endexercice\endsmc@noexercice
+  \let\corrige\smc@nocorrige
+  \let\endcorrige\endsmc@nocorrige
+  \def\smc@currpart{Exemple}%
+  \hspace*{\dimexpr \SquareWidth*3}%
+  \color{ExempleRuleColor}%
+  \vrule width \RuleWidth
+  \hspace*{\dimexpr \SquareWidth-\RuleWidth}%
+  \minipage[t]{\dimexpr\linewidth-\SquareWidth*4-\ExtraMarginRight}
+    \smc@cartoucheexemples
+    \space
+    \color{Noir}%
+    \ignorespaces
+}
+{%
+  \endminipage
+  \par
+}
+
+\DeclareRemLike{consequence}{Conséquence}
+\DeclareRemLike{rappel}{Rappel}
+\DeclareRemLike{valeurspart}{Valeurs particulières}
+%\DeclareRemLike{theoreme}{Théorème}
+% \NewThema{SP}
+%          {sp}
+%          {stat. et probabilités}
+%          {Stat. et probabilités}
+%          {STATISTIQUES\\ PROBABILITÉS}
+%          {PartieStatistique}
+%          {PartieStatistique}
+
+\NewThema{A}
+         {a}
+         {analyse}
+         {Analyse}
+         {ANALYSE}
+         {PartieFonction}
+         {A3}
+
+
+% Attention, il faudra ajouter un renewcommand \ListeMethodesThemes
+% pour afficher la liste des méthodes à la fin du livre
+
+% Si ils veulent changer la couleur du numéro des exos des
+% auto-évaluations il faudra aller voir
+% \colorlet{CorrigeNumExerciceFrameBkg}{J1}
+ 
+\newcommand{\N}{\mathbb{N}} 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\renewcommand{\cfrac}[2]{{\displaystyle\frac{%
+  \vrule height10pt depth0pt width0pt #1}{#2}}%
+  \kern-\nulldelimiterspace}
+%\usepackage{casio-fx,ti83symbols}
+
+\newcommand\renvoimethode[1]{%
+  Méthode \ref{#1}, p.~\pageref{#1}%
+}
+
+\newcommand*\calculatrice{%
+  \psframebox[framesep=1pt,linewidth=\LogoLineWidth,
+              linecolor=TiceLineColor, fillstyle=solid,
+              fillcolor=TiceBkgColor, framearc=0.6]{%
+    \TiceFont
+    \textcolor{TiceTextColor}{CALC}%
+  }
+}
+\newcommand\calc{\calculatrice}
+
+% Chapitre G1 et G3
+\newcommand{\covec}[2]{\left(\begin{array}{c} #1\\#2\end{array}\right)}
+
+% Chapitre G2
+\usepackage{tipa}
+\newcommand{\arc}[1]{%
+  \setbox9=\hbox{#1}%
+  \ooalign{\resizebox{\wd9}{\height}{\texttoptiebar{\phantom{A}}}\cr#1}}
+
+% Chapitre A4
+
+
+\DeclareMathOperator{\e}{e}
+\renewcommand{\cosh}{\operatorname{ch}}
+\renewcommand{\sinh}{\operatorname{sh}}
+\renewcommand{\tanh}{\operatorname{th}}
+
+\newcommand*{\StringLEMM}{LEMME\footnote{Un \MotDefinition{lemme}{} est un résultat préliminaire ou  intermédiaire qui intervient parfois dans la preuve d'un théorème lorsqu'elle est un peu longue.}}
+\newcommand*{\StringLEMME}{LEMME}
+\DeclareDefLike{lemme}{\StringLEMME}
+\DeclareDefLike{lemm}{\StringLEMM}
+
+\newcommand*{\StringPROPRIETA}{PROPRIÉTÉ (admise)}
+\DeclareDefLike{proprieta}{\StringPROPRIETA}
+
+\usepackage{wrapfig}
+
+% Environnement général pour toutes les fiches
+\newcommand\AnnexeTICE{%
+  \ChangeAnnexe{C2}{A1}{G1}{Blanc}%
+  \annexe{}%
+}
+% Déclaration de l'environnement pour une fiche
+\DeclareTPLike{ficheTICE}{Fiche}
+              {TPTopColor}
+              {TPBottomColor}
+              {TPTitleColor} 
+% Définition d'une commande \souspartie pour les besoins de la fiche
+% TICE. C'est la commande \partie un peu revue. Je crée les mêmes
+% paramètres de contrôle que pour TPPartie en mettant TPSousPartie à
+% la place.
+
+\colorlet{TPSousPartieColor}{J1}
+\colorlet{TPSousPartieBkgColor}{C2}
+\colorlet{TPSousPartieNumColor}{Blanc}
+\newcommand*\TPSousPartieFont{\fontsize{10}{12}\sffamily\bfseries}
+\def\BeforeTPSousPartieVSpace{3mm plus1mm minus1mm}
+\def\AfterTPSousPartieVSpace{0mm plus1mm}
+\edef\TPSousPartieHSep{\the\dimexpr\ItemRuleWidth+1.5mm}
+
+\newcommand*\souspartie[1]{%
+  \colorlet{smc@curr@partiecolor}{TPSousPartieNumColor}%
+  \colorlet{smc@curr@partiebkgcolor}{TPSousPartieBkgColor}%
+  \let\smc@curr@partiefont\TPSousPartieFont
+  \par\addvspace{\BeforeTPSousPartieVSpace}
+  \leavevmode
+  \psframe*[linecolor=smc@curr@partiebkgcolor]
+           (0,\ItemRuleDepth)(\ItemRuleWidth,\ItemRuleHeight)
+  \hspace*{\TPSousPartieHSep}%
+  \textcolor{TPSousPartieColor}{\TPSousPartieFont #1}
+  \par\nobreak\addvspace{\AfterTPSousPartieVSpace}
+}%
+
+\newcommand\RoseItalTice[1]{\emph{\textcolor{C2}{#1}}}
+
+%%% La présentation d'un texte en vis à vis d'une image n'est pas tout
+%%% à fait un habillage et la répétition de tels éléments risque de
+%%% poser des problèmes. Il vaut mieux se faire son propre « habillage
+%%% »
+\newcommand\ImageDroite[2]{%
+  % #1 = texte
+  % #2 = image (ou autre)
+  \setbox4=\hbox{#2}%
+  \dimen4=\dimexpr\ht4+\dp4-0.7\baselineskip
+  \par
+  \begin{tabularx}{\linewidth}{@{}Xc@{}}
+    #1 & \raisebox{-\dimen4}{#2} %\box4
+  \end{tabularx}
+  \par
+}
+\newcommand{\commandetice}[1]{%
+  \bgroup
+  \shorthandoff{;:!?}%
+  \texttt{#1}%
+  \egroup
+}
+
+\newcommand\touchecalc[1]{%
+  \tikz[baseline=-0.5ex]{\node at (0,0) [rounded corners = 2pt, draw, line width=.25pt]
+    {\footnotesize\textsf{#1}}}%
+}
+
+\DeclareFontFamily{U}{tipa}{}
+\DeclareFontShape{U}{tipa}{m}{n}{<->tipa10}{}
+\newcommand{\arc@char}{{\usefont{U}{tipa}{m}{n}\symbol{62}}}%
+
+\newcommand{\overarc}[1]{\mathpalette\arc@arc{#1}}
+
+\newcommand{\arc@arc}[2]{%
+  \sbox0{$\m@th#1#2$}%
+  \vbox{
+    \hbox{\resizebox{\wd0}{\height}{\arc@char}}
+    \nointerlineskip
+    \box0
+  }%
+}
+
+% Pour A2
+
+\def\psThomae{\pst@object{psThomae}}
+\def\psThomae@i(#1,#2){%
+   \begin@ClosedObj
+   \addto@pscode{
+     \psk@dotsize
+     1 1 500 {
+       dup
+       /ipSave ED
+       /ip ED
+       1 1 500 {
+         dup
+         /iqSave ED
+         /iq ED
+         {
+           iq 0 le { exit } if
+           ip iq mod
+           /ip iq def
+           /iq ED
+         } loop
+         ip 1 eq {
+           \psk@dotsize
+           \@nameuse{psds@\psk@dotstyle}
+           \pst@usecolor\pslinecolor ipSave iqSave div 1 iqSave div 
+\tx@ScreenCoor
+           2 copy moveto Dot
+         } if
+       } for
+     } for
+   }%
+   \end@ClosedObj%
+}
+
+\renewcommand\smc@AfficheListeMethodesTheme[2]{%
+  \expandafter\ifx\csname ifsmc@lom#1\endcsname\iftrue
+    \csname smc@thema#2Color\endcsname
+    \expandafter\smc@bandeaulistemethodes
+      \expandafter{\csname StringListeMethode#2\endcsname}
+    \ifnum \smc@NombreColonnesListeMethodes=\@ne
+      \@starttoc{lom#1}
+    \else
+      \begin{multicols}{\smc@NombreColonnesListeMethodes}
+        \@starttoc{lom#1}
+      \end{multicols}
+    \fi
+  \fi
+  \newpage
+}
+\fancypagestyle{empty}{%
+  \fancyhead{}
+  \fancyfoot{}
+} 
+
+\renewcommand*\AfficheCorriges[1][\NombreColonnesCorriges]{%
+  \clearpage
+  \label{toutes-solutions}
+  \pagestyle{corrige}
+  \thispagestyle{firstcorrige}
+  \rput[Bl](0,9mm){\CorrigeTitleFont \MakeUppercase{\StringCorriges}}
+  \vspace*{-5mm}
+  \begingroup
+  \columnsep \dimexpr \SquareWidth*2
+  \columnseprule \CorrigeRuleWidth
+  \def\columnseprulecolor{\color{ExerciceColumnRuleColor}}%
+  \xdef\smc@NbColonneCorrige{#1}%
+  \begin{multicols*}{#1}
+  \raggedcolumns
+    \@starttoc{cor}%
+  \end{multicols*}
+  \endgroup
+}
+
+
+\renewcommand\smc@preinsertlexiquefinal[3][]{%
+  \@ifmtarg{#1}%
+    {\smc@sansdiacritique{#2}}%
+    {\smc@sansdiacritique{#1}}%
+  \ifcsname affiche-\smc@tri\endcsname
+  \else
+    \expandafter\gdef\csname affiche-\smc@tri\endcsname{true}%
+    \@ifmtarg{#1}%
+      {\smc@sansdiacritique{#2}}%
+      {\smc@sansdiacritique{#1}}%
+    \global\advance\smc@numlexique \@ne
+    \@ifmtarg{#1}%
+      {\smc@@preFirstUppercase#2\@nil#3\@nil}%
+      {\expandafter\protected@xdef\csname
+lexique\the\smc@numlexique\endcsname
+        {%
+          \protect\textcolor{LexiqueEntreeColor}{%
+            \protect\LexiqueEntreeFont #2%
+          }%
+%%%       \space\hbox to4.4em{\rdotfill}\kern0em\penalty0
+          ~%%%
+          \hspace*{\LexiquePageWidth}\penalty0
+          \hspace{-\LexiquePageWidth}\dotfill
+          \ifnum\csname nb-\smc@tri\endcsname>\@ne
+            \protect\emph{ Pages~\csname pages-\smc@tri\endcsname}%
+          \else
+            \protect\emph{ Page~\csname pages-\smc@tri\endcsname}%
+          \fi
+        }%
+      }%
+    \expandafter\xdef\csname tri\the\smc@numlexique\endcsname
+      {\smc@tri}%
+  \fi
+}
+\long\def\smc@@preFirstUppercase#1#2#3\@nil#4\@nil{%
+  \def\smc@arg{#1}%
+  \ifx\smc@arg\smc@IeC
+    \expandafter\protected@xdef\csname lexique\the\smc@numlexique\endcsname
+      {%
+        \protect\textcolor{LexiqueEntreeColor}
+        {%
+          \protect\LexiqueEntreeFont
+          \MakeUppercase{#1#2}%
+          \MakeLowercase{#3}%
+        }%
+        %%% \space\hbox to4.4em{\rdotfill}\kern-0.44em\penalty0
+        ~%%%
+        \hspace*{\LexiquePageWidth}\penalty0
+        \hspace{-\LexiquePageWidth}\rdotfill
+        \ifnum\csname nb-\smc@tri\endcsname>\@ne
+          \protect\emph{ Pages~\csname pages-\smc@tri\endcsname}%
+        \else
+          \protect\emph{ Page~\csname pages-\smc@tri\endcsname}%
+        \fi
+      }%
+  \else
+    \expandafter\protected@xdef\csname lexique\the\smc@numlexique\endcsname
+      {%
+        \protect\textcolor{LexiqueEntreeColor}
+        {%
+          \protect\LexiqueEntreeFont
+          \MakeUppercase{#1}%
+          \MakeLowercase{#2#3}%
+        }%
+%%%     \space\hbox to4.4em{\rdotfill}\kern-0.44em\penalty0
+        ~%%%
+        \hspace*{\LexiquePageWidth}\penalty0
+        \hspace{-\LexiquePageWidth}\rdotfill
+        \ifnum\csname nb-\smc@tri\endcsname>\@ne
+          \protect\emph{ Pages~\csname pages-\smc@tri\endcsname}%
+        \else
+          \protect\emph{ Page~\csname pages-\smc@tri\endcsname}%
+        \fi
+      }%
+  \fi
+} 
+
+\makeatother
+
+%\input{G1/biton}
